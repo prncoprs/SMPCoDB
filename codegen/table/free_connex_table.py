@@ -1,3 +1,5 @@
+import json
+
 from .table import Table, CharacterEnum, JoinColumn
 from .column import Column
 from typing import List, Tuple
@@ -129,3 +131,7 @@ class FreeConnexTable(Table):
                 return True
 
         return False
+
+
+
+

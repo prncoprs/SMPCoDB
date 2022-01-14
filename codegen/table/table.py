@@ -341,3 +341,9 @@ class Table:
 
     def get_annotation_name(self, index=0):
         return f"{self.variable_table_name}_annotation_{index}"
+
+    def __str__(self):
+        return '%s(%s)' % (
+            type(self).__name__,
+            ', '.join('%s=%s' % item for item in vars(self).items())
+        )

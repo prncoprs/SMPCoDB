@@ -117,8 +117,14 @@ class Column:
 
         return False
 
+    # def __str__(self):
+    #     return f"<Column: {self.name} />"
+
     def __str__(self):
-        return f"<Column: {self.name} />"
+        return '%s(%s)' % (
+            type(self).__name__,
+            ', '.join('%s=%s' % item for item in vars(self).items())
+        )
 
 
 class JoinColumn:
@@ -164,3 +170,9 @@ class JoinColumn:
 
         self.to_table_key = self.from_table_key
         self.from_table_key = tmp_key
+
+    def __str__(self):
+        return '%s(%s)' % (
+            type(self).__name__,
+            ', '.join('%s=%s' % item for item in vars(self).items())
+        )

@@ -104,6 +104,15 @@ class Parser:
 
         return attrs
 
+    def get_used_tables(self) -> List[str]:
+        node = self.root
+        while node:
+            if isinstance(node, FromNode):
+                return [str(i) for i in node.identifier_list]
+            else:
+                node = node.next
+        return []
+
     def parse(self):
         """
         Parse sql statement and construct the sql query tree and sql join tree
@@ -228,7 +237,6 @@ class Parser:
             last: SelectNode
             function_type = function.tokens[0].normalized
             if function_type == "max":
-
                 last.used_aggregation_function = "max"
             elif function_type == "sum":
                 last.used_aggregation_function = "sum"
@@ -320,3 +328,9 @@ class Parser:
         last = self.root.get_last_node()
         tokens = [t for t in token.get_identifiers()]
         last.set_identifier_list(tokens)
+
+    def __str__(self):
+        return '%s(%s)' % (
+            type(self).__name__,
+            ', '.join('%s=%s' % item for item in vars(self).items())
+        )
